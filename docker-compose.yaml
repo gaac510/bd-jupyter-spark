@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  notebook:
+    ports:
+      - 8888:8888
+      - 4040:4040
+    image: gaac510docker/jupyter-all-spark:3.3.1-python3.8-jdk8
+    user: root
+    working_dir: "/home/${NB_USER}/work"
+    volumes:
+      - "./data:/data"
+      - "./data:/home/${NB_USER}/work/data"
+      - "./jupyter-home/work:/home/${NB_USER}/work"
+      - "./jupyter-home/.jupyter:/home/${NB_USER}/.jupyter"
+      - "./jupyter-home/.ipython:/home/${NB_USER}/.ipython"
+    environment:
+      - "NB_USER=${NB_USER}"
+      - CHOWN_HOME=yes
+
+  spark-master:
+    ports:
+      - 8080:8080
+    image: bitnami/spark:3.3.1
+    volumes:
+      - "./data:/data"
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+
+  spark-worker:
+    depends_on:
+      - spark-master
+    ports:
+      - 8081
+    image: bitnami/spark:3.3.1
+    volumes:
+      - "./data:/data"
+    deploy:
+      mode: replicated
+      replicas: 4
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
