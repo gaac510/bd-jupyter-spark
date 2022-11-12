@@ -58,10 +58,26 @@ the Jupyter container.
 
 ## Things to Note
 
-- The container images used and the runtime versions are as the following.
+- The container images used and the runtime versions are as the below. The
+  custom Jupyter image was necessary to make sure that Jupyter as the driver is
+  running on the same combination of runtime versions as the Spark cluster.
+  (There were other ways to achieve this.)
 
-Image | PySpark | Python | OpenJDK
+Image | Spark | Python | OpenJDK
 --- | --- | --- | ---
 [gaac510docker/jupyter-all-spark:3.3.1-python3.8-jdk8](https://hub.docker.com/r/gaac510docker/jupyter-all-spark) | 3.3.1 | 3.8.13 | 1.8.0_352 (JKD8)
 [bitnami/spark:3.3.1](https://hub.docker.com/r/bitnami/spark) | 3.3.1 | 3.8.15 | 1.8.0_352 (JKD8)
-- 
+
+- The custom Jupyter image was built using [the official *pyspark-notebook
+  Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/pyspark-notebook)
+  and [the official *all-spark-notebook
+  Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/all-spark-notebook)
+  with slight modifications which are:
+  * Change the *pyspark-notebook Dockerfile* to build from
+    `jupyter/scipy-notebook:python-3.8` which had Python version 3.8.13.
+  * Also change the *pyspark-notebook Dockerfile* to use OpenJDK version 8.
+  * The *all-spark* image was then built using the custom-built *pyspark* image
+    with the above modification.
+
+- The modified *pyspark-notebook Dockerfile* and *all-spark-notebook Dockerfile*
+  are included in this repo for reference.
