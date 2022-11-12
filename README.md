@@ -84,7 +84,7 @@ Image | Spark | Python | OpenJDK
 
   * Change the *pyspark-notebook Dockerfile* to build from
     `jupyter/scipy-notebook:python-3.8` which had Python version 3.8.13.
-  * Also change the *pyspark-notebook Dockerfile* to use OpenJDK version8.
+  * Also change the *pyspark-notebook Dockerfile* to use OpenJDK version 8.
   * The *all-spark* image was then built using the custom-built *pyspark* image
     with the above modification.
 
