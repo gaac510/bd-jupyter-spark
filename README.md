@@ -56,6 +56,14 @@ frontend is to look for the login link/token in the Jupyter container's log.
 Executing `./x <any command>` except the above will execute the command inside
 the Jupyter container.
 
+### The `.env` File
+
+Both `docker-compose.yml` and `x` refer to this file for environment variables.
+
+Currently there is only a single variable `NB_USER` which determines with which
+user the Jupyter container is ran. More variables can be added and then used in
+`docker-compose.yml` and `x`.
+
 ## Things to Note
 
 - The container images used and the runtime versions are as the below. The
@@ -72,10 +80,11 @@ Image | Spark | Python | OpenJDK
   Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/pyspark-notebook)
   and [the official *all-spark-notebook
   Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/all-spark-notebook)
-  with slight modifications which are:
+  with slight modifications which include:
+
   * Change the *pyspark-notebook Dockerfile* to build from
     `jupyter/scipy-notebook:python-3.8` which had Python version 3.8.13.
-  * Also change the *pyspark-notebook Dockerfile* to use OpenJDK version 8.
+  * Also change the *pyspark-notebook Dockerfile* to use OpenJDK version8.
   * The *all-spark* image was then built using the custom-built *pyspark* image
     with the above modification.
 
