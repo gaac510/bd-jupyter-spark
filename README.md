@@ -59,6 +59,7 @@ the Jupyter container.
 ## Things to Note
 
 - The container images used and the runtime versions are as the following.
+
 Image | PySpark | Python | OpenJDK
 --- | --- | ---
 [gaac510docker/jupyter-all-spark:3.3.1-python3.8-jdk8](https://hub.docker.com/r/gaac510docker/jupyter-all-spark) | 3.3.1 | 3.8.13 | 1.8.0_352 (JKD8)
