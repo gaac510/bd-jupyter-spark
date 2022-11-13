@@ -37,8 +37,8 @@ data files to the Spark cluster, and all components, i.e the driver, the cluster
 manager and the executors, have to refer to the same source data location.
 
 The same `data` directory is also mapped to inside the working directory of the
-Jupyter container, so that any data files can be directly accessed in the
-Jupyter frontend.
+Jupyter container, so that any data files can be accessed in the Jupyter
+frontend in case direct manipulation of any data file is desired.
 
 ### The `x` Script File
 
@@ -73,14 +73,14 @@ user the Jupyter container is ran. More variables can be added and then used in
 
 Image | Spark | Python | OpenJDK
 --- | --- | --- | ---
-[gaac510docker/jupyter-all-spark:3.3.1-python3.8-jdk8](https://hub.docker.com/r/gaac510docker/jupyter-all-spark) | 3.3.1 | 3.8.13 | 1.8.0_352 (JKD8)
-[bitnami/spark:3.3.1](https://hub.docker.com/r/bitnami/spark) | 3.3.1 | 3.8.15 | 1.8.0_352 (JKD8)
+[gaac510docker/jupyter-all-spark:3.3.1-python3.8-jdk8](https://hub.docker.com/r/gaac510docker/jupyter-all-spark) | 3.3.1 | 3.8.13 | 1.8.0_352 (JDK8)
+[bitnami/spark:3.3.1](https://hub.docker.com/r/bitnami/spark) | 3.3.1 | 3.8.15 | 1.8.0_352 (JDK8)
 
 - The custom Jupyter image was built using [the official *pyspark-notebook
   Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/pyspark-notebook)
   and [the official *all-spark-notebook
   Dockerfile*](https://github.com/jupyter/docker-stacks/tree/main/all-spark-notebook)
-  with slight modifications which include:
+  with slight modifications including:
 
   * Change the *pyspark-notebook Dockerfile* to build from
     `jupyter/scipy-notebook:python-3.8` which had Python version 3.8.13.
